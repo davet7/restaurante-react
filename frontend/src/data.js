@@ -1,0 +1,50 @@
+const data = {
+  products: [
+    {
+      nombre: 'Sopa de Mazorca',
+      slug: 'sancocho-de-mazorca',
+      categoria: 'Sopas',
+      imagen: '/images/p1.jpg',
+      precio: 10000.0,
+      marca: 'Sopas de la Abuela',
+      rating: 4.7,
+      numReviews: 15,
+      descripcion: 'Sopa de mazorca lica muy lica',
+    },
+    {
+      nombre: 'Churrasco al Ajillo',
+      slug: 'churrasco-al-ajillo',
+      categoria: 'Carnes',
+      imagen: '/images/p2.jpg',
+      precio: 25000.0,
+      marca: 'Carnes & Carnes',
+      rating: 4.9,
+      numReviews: 12,
+      descripcion: 'Churrasco al ajillo impsum impsum',
+    },
+    {
+      nombre: 'Jugo de Corozo',
+      slug: 'jugo-de-corozo',
+      categoria: 'Jugos',
+      imagen: '/images/p3.jpg',
+      precio: 3000.0,
+      marca: 'Francia Marqz',
+      rating: 4.5,
+      numReviews: 5,
+      descripcion: 'Juguito sabroso',
+    },
+    {
+      nombre: 'Postre Tres Leches',
+      slug: 'postre-de-las-tres-leches',
+      categoria: 'Postres',
+      imagen: '/images/p4.jpg',
+      precio: 8000.0,
+      marca: 'Cremas',
+      rating: 4.8,
+      numReviews: 9,
+      descripcion: 'Delicioso postre Colombiano',
+    },
+  ],
+};
+
+export default data;
