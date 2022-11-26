@@ -4,17 +4,17 @@ const data = {
   users: [
     //admin
     {
-      nombre: 'David',
+      name: 'David',
       email: 'david@gmail.com',
       password: bcrypt.hashSync('mintic04'),
-      esAdmin: true,
+      isAdmin: true,
     },
     //cliente
     {
-      nombre: 'Sergio',
+      name: 'Sergio',
       email: 'sergio@gmail.com',
       password: bcrypt.hashSync('mintic04'),
-      esAdmin: false,
+      isAdmin: false,
     },
   ],
   products: [
@@ -26,7 +26,7 @@ const data = {
       imagen: '/images/p1.jpg',
       precio: 10000.0,
       marca: 'Sopas de la Abuela',
-      rating: 4.7,
+      rating: 2,
       numReviews: 15,
       descripcion: 'Sopa de mazorca lica muy lica',
       countInStock: 20,
