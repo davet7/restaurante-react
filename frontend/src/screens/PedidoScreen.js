@@ -20,7 +20,7 @@ export default function PedidoScreen() {
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Lo sentimos. El producto esta agotado');
+      window.alert('Lo sentimos. El producto está agotado');
       return;
     }
     ctxDispatch({
@@ -48,7 +48,7 @@ export default function PedidoScreen() {
           {cartItems.length === 0 ? (
             <MessageBox>
               Su pedido está vacio.{' '}
-              <Link to="/">Vaya al menu de productos</Link>
+              <Link to="/">Vaya al menú de productos</Link>
             </MessageBox>
           ) : (
             <ListGroup>

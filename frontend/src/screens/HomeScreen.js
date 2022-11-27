@@ -48,7 +48,7 @@ function HomeScreen() {
       <Helmet>
         <title>El Restaurante Llanero</title>
       </Helmet>
-      <h1>Menu de productos</h1>
+      <h1>Menú de productos</h1>
       <div className="products">
         {loading ? (
           <LoadingBox />
