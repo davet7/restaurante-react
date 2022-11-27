@@ -5,7 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import ProductosScreen from './screens/ProductosScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import { Store } from './Store';
 import PedidoScreen from './screens/PedidoScreen';
 import InicioSesionScreen from './screens/InicioSesionScreen';
+import RegistroScreen from './screens/RegistroScreen';
+import UserScreen from './screens/UserScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -40,25 +42,23 @@ function App() {
                     </Badge>
                   )}
                 </Link>
+
                 {userInfo ? (
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>Perfil de Usuario</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/orderhistory">
-                      <NavDropdown.Item>Historial de Compras</NavDropdown.Item>
+                    <LinkContainer to="/user">
+                      <NavDropdown.Item>Portal</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Divider />
                     <Link
                       className="dropdown-item"
-                      to="#signout"
+                      to="/"
                       onClick={signoutHandler}
                     >
                       Cerrar Sesión
                     </Link>
                   </NavDropdown>
                 ) : (
-                  <Link className="nav-link" to="/iniciarsesion">
+                  <Link className="nav-link" to="/iniciosesion">
                     Iniciar Sesión
                   </Link>
                 )}
@@ -71,7 +71,9 @@ function App() {
             <Routes>
               <Route path="/product/:slug" element={<ProductosScreen />} />
               <Route path="/pedido" element={<PedidoScreen />} />
-              <Route path="/iniciarsesion" element={<InicioSesionScreen />} />
+              <Route path="/iniciosesion" element={<InicioSesionScreen />} />
+              <Route path="/registro" element={<RegistroScreen />} />
+              <Route path="/user" element={<UserScreen />} />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>

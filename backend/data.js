@@ -16,6 +16,18 @@ const data = {
       password: bcrypt.hashSync('mintic04'),
       isAdmin: false,
     },
+    {
+      name: 'Lena',
+      email: 'Lena@gmail.com',
+      password: bcrypt.hashSync('mintic04'),
+      isAdmin: false,
+    },
+    {
+      name: 'Julieth',
+      email: 'julieth@gmail.com',
+      password: bcrypt.hashSync('mintic04'),
+      isAdmin: false,
+    },
   ],
   products: [
     {

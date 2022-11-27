@@ -1,55 +1,67 @@
-import { Helmet } from 'react-helmet-async';
+import Axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import { useContext, useEffect, useState } from 'react';
-import { Store } from '../Store.js';
+import { Store } from '../Store';
 import { toast } from 'react-toastify';
-import { getError } from '../utils.js';
+import { getError } from '../utils';
 
-export default function InicioSesionScreen() {
+export default function RegistroScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const redirectInURL = new URLSearchParams(search).get('redirect');
-  const redirect = redirectInURL ? redirectInURL : '/user';
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
 
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const { state, dispatch: ctxDispath } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
-
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
     try {
-      const { data } = await axios.post('/api/users/iniciosesion', {
+      const { data } = await Axios.post('/api/users/registro', {
+        name,
         email,
         password,
       });
-      ctxDispath({ type: 'USER_SIGNIN', payload: data });
+      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (err) {
       toast.error(getError(err));
     }
   };
+
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
+
   return (
     <Container className="small-container">
       <Helmet>
-        <title> Iniciar Sesión</title>
+        <title>Registro</title>
       </Helmet>
-      <h1 className="my-3">Inicie Sesión</h1>
+      <h1 className="my-3">Registro</h1>
       <Form onSubmit={submitHandler}>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control onChange={(e) => setName(e.target.value)} required />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label>E-mail</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             required
@@ -57,21 +69,27 @@ export default function InicioSesionScreen() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Contraseña</Form.Label>
           <Form.Control
             type="password"
             required
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Form.Group className="mb-3" controlId="confirmPassword">
+            <Form.Label>Confirmar Constraseña</Form.Label>
+            <Form.Control
+              type="password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
         </Form.Group>
         <div className="mb-3">
-          <Button type="submit">Iniciar Sesión</Button>
+          <Button type="submit">Registrarse</Button>
         </div>
         <div className="mb-3">
-          ¿Nuevo Cliente?{' '}
-          <Link to={`/registro?redirect=${redirect}`}>
-            Cree su cuenta de usuario
-          </Link>
+          ¿Estás registrado?{' '}
+          <Link to={`/iniciosesion?redirect=${redirect}`}>Iniciar Sesión</Link>
         </div>
       </Form>
     </Container>

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Store } from '../Store';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,10 +10,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 
-export default function PedidoScreen() {
+export default function UserScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
+    userInfo,
     cart: { cartItems },
   } = state;
 
@@ -37,12 +38,20 @@ export default function PedidoScreen() {
     navigate('/iniciosesion?redirect=/user');
   };
 
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/iniciosesion?redirect=/user');
+    }
+  }, [userInfo, navigate]);
+
   return (
     <div>
       <Helmet>
-        <title>Su Pedido</title>
+        <title>Hola, {userInfo.name}</title>
       </Helmet>
-      <h1>Su Pedido</h1>
+
+      <h1 className="my-3">¡Bienvenido, {userInfo.name}! </h1>
+      <h3 className="my-3">Confirma tu compra </h3>
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
@@ -118,7 +127,7 @@ export default function PedidoScreen() {
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                     >
-                      PAGAR
+                      CONFIRMAR COMPRA
                     </Button>
                   </div>
                 </ListGroup.Item>
